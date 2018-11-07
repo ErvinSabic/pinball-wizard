@@ -34,7 +34,7 @@ import Matter from 'Matter-js';
         width: 550,
         height: 650,
         wireframes: false,
-        background: "#787b8aa3"
+        background: "url(app/assets/images/bg.jpg)",
       }
     });
 
