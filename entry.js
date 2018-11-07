@@ -101,7 +101,7 @@ import Matter from 'Matter-js';
   }
 
   function createBall() {
-    let ball = Bodies.circle(0, 0, 15);
+    let ball = Bodies.circle(0, 0, 13,{render: { sprite: {texture:"app/assets/images/sprites/ball.png"}}});
     ball.label = 'pinball';
     return ball;
   }
@@ -136,7 +136,7 @@ import Matter from 'Matter-js';
 
      var pairs = event.pairs;
       ballVelocity = event.pairs[0].bodyB.velocity;
-      let maxVelocity = 50;
+      let maxVelocity = 100;
 
       // let yVelocity = (ballVelocity.y) * (-1.1);
 
@@ -149,19 +149,19 @@ import Matter from 'Matter-js';
 				y: Math.max(Math.min(ballVelocity.y, maxVelocity), -maxVelocity),
 			});
       body = event.pairs[0].bodyA.render;
-      body.fillStyle = '#B09150';
+      body.sprite.texture = 'app/assets/images/sprites/orb-lit.png';
       setTimeout(function() {
-        body.fillStyle = "#5C43B5";}, 100);
-      } else if (event.pairs[0].bodyA.label === 'launchpad') {
+        body.sprite.texture = 'app/assets/images/sprites/orb.png';}, 100);
+      } else if (event.pairs[0].bodyA.label === 'rightBumper' || event.pairs[0].bodyA.label === 'leftBumper') {
         updateScore(5);
         Matter.Body.setVelocity(event.pairs[0].bodyB, {
           x: Math.max(Math.min(ballVelocity.x, maxVelocity), -maxVelocity),
           y: Math.max(Math.min(ballVelocity.y, maxVelocity), -maxVelocity),
         });
         body = event.pairs[0].bodyA.render;
-        body.fillStyle = '#B09150';
+        body.sprite.texture = 'app/assets/images/sprites/bumper-lit.png';
         setTimeout(function() {
-          body.fillStyle = "#A9D2F0";}, 100);
+          body.sprite.texture = 'app/assets/images/sprites/bumper.png';}, 100);
       }
     });
   }

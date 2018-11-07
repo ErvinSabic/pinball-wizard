@@ -10578,7 +10578,7 @@ function launch() {
 }
 
 function createBall() {
-  var ball = Bodies.circle(0, 0, 15);
+  var ball = Bodies.circle(0, 0, 13, { render: { sprite: { texture: "app/assets/images/sprites/ball.png" } } });
   ball.label = 'pinball';
   return ball;
 }
@@ -10613,7 +10613,7 @@ function ballOut() {
 
     var pairs = event.pairs;
     ballVelocity = event.pairs[0].bodyB.velocity;
-    var maxVelocity = 50;
+    var maxVelocity = 100;
 
     // let yVelocity = (ballVelocity.y) * (-1.1);
 
@@ -10626,20 +10626,20 @@ function ballOut() {
         y: Math.max(Math.min(ballVelocity.y, maxVelocity), -maxVelocity)
       });
       body = event.pairs[0].bodyA.render;
-      body.fillStyle = '#B09150';
+      body.sprite.texture = 'app/assets/images/sprites/orb-lit.png';
       setTimeout(function () {
-        body.fillStyle = "#5C43B5";
+        body.sprite.texture = 'app/assets/images/sprites/orb.png';
       }, 100);
-    } else if (event.pairs[0].bodyA.label === 'launchpad') {
+    } else if (event.pairs[0].bodyA.label === 'rightBumper' || event.pairs[0].bodyA.label === 'leftBumper') {
       updateScore(5);
       _MatterJs2.default.Body.setVelocity(event.pairs[0].bodyB, {
         x: Math.max(Math.min(ballVelocity.x, maxVelocity), -maxVelocity),
         y: Math.max(Math.min(ballVelocity.y, maxVelocity), -maxVelocity)
       });
       body = event.pairs[0].bodyA.render;
-      body.fillStyle = '#B09150';
+      body.sprite.texture = 'app/assets/images/sprites/bumper-lit.png';
       setTimeout(function () {
-        body.fillStyle = "#A9D2F0";
+        body.sprite.texture = 'app/assets/images/sprites/bumper.png';
       }, 100);
     }
   });
@@ -10795,12 +10795,12 @@ var Bodies = _MatterJs2.default.Bodies;
 var Constraint = _MatterJs2.default.Constraint;
 var bufferGroup = _MatterJs2.default.Body.nextGroup(true);
 
-var COLORS = { WALLS: "#000000", INNERWALLS: "#608CBB", BUMPERS: "#A9D2F0", ORBS: "#5C43B5", PADDLE: "#f5a02e" };
+var COLORS = { WALLS: "#000000", INNERWALLS: "#000000", BUMPERS: "#A9D2F0", ORBS: "#5C43B5", PADDLE: "#f5a02e" };
 
 var circles = exports.circles = function circles() {
-  var circle1 = Bodies.circle(235, 120, 30, { label: 'topCircle', isStatic: true, render: { fillStyle: COLORS.ORBS } });
-  var circle2 = Bodies.circle(146, 200, 30, { label: 'topCircle', isStatic: true, render: { fillStyle: COLORS.ORBS } });
-  var circle3 = Bodies.circle(323, 200, 30, { label: 'topCircle', isStatic: true, render: { fillStyle: COLORS.ORBS } });
+  var circle1 = Bodies.circle(235, 120, 30, { label: 'topCircle', restitution: 1, isStatic: true, render: { sprite: { texture: "app/assets/images/sprites/orb.png" } } });
+  var circle2 = Bodies.circle(146, 200, 30, { label: 'topCircle', restitution: 1, isStatic: true, render: { sprite: { texture: "app/assets/images/sprites/orb.png" } } });
+  var circle3 = Bodies.circle(323, 200, 30, { label: 'topCircle', restitution: 1, isStatic: true, render: { sprite: { texture: "app/assets/images/sprites/orb.png" } } });
 
   return [circle1, circle2, circle3];
 };
@@ -10822,22 +10822,22 @@ var innerWalls = exports.innerWalls = function innerWalls() {
   var leftPaddleWallVert = Bodies.rectangle(60, 415, 120, 20, { angle: Math.PI / 2, chamfer: { radius: 10 }, isStatic: true, render: { fillStyle: COLORS.INNERWALLS } });
   var leftPaddleWallSlant = Bodies.rectangle(100, 490, 110, 20, { angle: Math.PI / 6, chamfer: { radius: 10 }, isStatic: true, render: { fillStyle: COLORS.INNERWALLS } });
   var rightPaddleWallVert = Bodies.rectangle(430, 415, 120, 20, { angle: Math.PI / 2, chamfer: { radius: 10 }, isStatic: true, render: { fillStyle: COLORS.INNERWALLS } });
-  var rightPaddleWallSlant = Bodies.rectangle(390, 490, 110, 20, { angle: 5 * Math.PI / 6, chamfer: { radius: 10 }, isStatic: true, render: { fillStyle: COLORS.INNERWALLS } });
+  var rightPaddleWallSlant = Bodies.rectangle(390, 490, 110, 20, { angle: 5 * Math.PI / 6, chamfer: { radius: 10 }, isStatic: true, render: { fillStyle: COLORS.INNERWALLS, strokeStyle: 'red', stroke: true } });
 
   return [leftPaddleWallVert, leftPaddleWallSlant, rightPaddleWallVert, rightPaddleWallSlant];
 };
 
 var bumpers = exports.bumpers = function bumpers() {
-  var leftBumper = Bodies.trapezoid(150, 420, 40, 100, 1, { isStatic: true, angle: -0.5, chamfer: { radius: 10 }, render: { sprite: { texture: "app/assets/images/sprites/bumper.png" } } });
-  var rightBumper = Bodies.trapezoid(340, 420, 40, 100, 1, { isStatic: true, angle: 0.5, chamfer: { radius: 10 }, render: { sprite: { texture: "app/assets/images/sprites/bumper.png" } } });
+  var leftBumper = Bodies.trapezoid(150, 420, 40, 100, 1, { label: 'leftBumper', isStatic: true, angle: -0.5, chamfer: { radius: 10 }, restitution: 0.8, render: { sprite: { texture: "app/assets/images/sprites/bumper.png" } } });
+  var rightBumper = Bodies.trapezoid(340, 420, 40, 100, 1, { label: 'rightBumper', isStatic: true, angle: 0.5, chamfer: { radius: 10 }, restitution: 0.8, render: { sprite: { texture: "app/assets/images/sprites/bumper.png" } } });
   //
 
   return [leftBumper, rightBumper];
 };
 
 var thorns = exports.thorns = function thorns() {
-  var leftThorn = Bodies.trapezoid(10, 280, 50, 50, 0.5, { isStatic: true, angle: Math.PI / 2, chamfer: { radius: 10 }, render: { fillStyle: COLORS.WALLS } });
-  var rightThorn = Bodies.trapezoid(475, 280, 50, 50, 0.5, { isStatic: true, angle: 3 * Math.PI / 2, chamfer: { radius: 10 }, render: { fillStyle: COLORS.WALLS } });
+  var leftThorn = Bodies.trapezoid(10, 280, 50, 50, 0.5, { isStatic: true, angle: Math.PI / 2, chamfer: { radius: 10 }, restitution: 0.8, render: { fillStyle: COLORS.WALLS } });
+  var rightThorn = Bodies.trapezoid(475, 280, 50, 50, 0.5, { isStatic: true, angle: 3 * Math.PI / 2, chamfer: { radius: 10 }, restitution: 0.8, render: { fillStyle: COLORS.WALLS } });
 
   return [leftThorn, rightThorn];
 };
@@ -10849,13 +10849,13 @@ var ballHatch = exports.ballHatch = function ballHatch() {
 };
 
 var paddles = exports.paddles = function paddles() {
-  var leftPaddle = Bodies.trapezoid(190, 540, 25, 80, 0.25, { label: 'leftPaddle', angle: 2 * Math.PI / 3, chamfer: { radius: 10 }, isSleeping: false, render: { sprite: { texture: "app/assets/images/sprites/flipper.png" } } });
+  var leftPaddle = Bodies.trapezoid(190, 540, 25, 80, 0.25, { friction: 0.8, label: 'leftPaddle', angle: 2 * Math.PI / 3, chamfer: { radius: 10 }, isSleeping: false, render: { sprite: { texture: "app/assets/images/sprites/flipper.png" } } });
   var leftHinge = Bodies.circle(172, 529, 5, { isStatic: true });
   var leftConstraint = Constraint.create({ bodyA: leftPaddle, bodyB: leftHinge, pointA: { x: -18, y: -11 }, stiffness: 0, length: 0 });
   var leftBlock = Bodies.rectangle(200, 550, 30, 30, { isStatic: false, render: { visible: false } });
   var leftWeight = Constraint.create({ bodyA: leftPaddle, bodyB: leftBlock, pointA: { x: 13, y: 11 }, stiffness: 1, length: 1, render: { visible: false } });
 
-  var rightPaddle = Bodies.trapezoid(300, 540, 25, 80, 0.25, { label: 'rightPaddle', angle: 4 * Math.PI / 3, chamfer: { radius: 10 }, isSleeping: false, render: { sprite: { texture: "app/assets/images/sprites/flipper.png" } } });
+  var rightPaddle = Bodies.trapezoid(300, 540, 25, 80, 0.25, { friction: 0.8, label: 'rightPaddle', angle: 4 * Math.PI / 3, chamfer: { radius: 10 }, isSleeping: false, render: { sprite: { texture: "app/assets/images/sprites/flipper.png" } } });
   var rightHinge = Bodies.circle(318, 529, 5, { isStatic: true });
   var rightConstraint = Constraint.create({ bodyA: rightPaddle, bodyB: rightHinge, pointA: { x: 18, y: -11 }, stiffness: 0, length: 0 });
   var rightBlock = Bodies.rectangle(290, 550, 30, 30, { isStatic: false, render: { visible: false } });

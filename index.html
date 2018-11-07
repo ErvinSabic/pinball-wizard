@@ -13,37 +13,41 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="./app/assets/stylesheets/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
     <script type="text/javascript" src="./app/assets/javascripts/bundle.js" charset="utf-8"></script>
     <title>Pinball Wizard</title>
   </head>
   <body>
-    <div class="title"><h2>Pinball ⚡ Wizard </h2></div> 
-    <div class="body">
-    <div class="icons">
-      <li><a href="https://github.com/fishshiz" i class="fa fa-github fa-3x" aria-hidden="true"></a></li>
-      <li><a href="https://www.linkedin.com/in/edan-lewis-752633133/" i class="fa fa-linkedin-square fa-3x" aria-hidden="true"></a></li>
-      <li><a href="https://angel.co/edan-lewis?public_profile=1" i class="fa fa-angellist fa-3x" aria-hidden="true"></a></li>
+  <div class="play-area">
+    <div class="info-area">
+        <h2>How to Play:</h2>
+        <i class="fa fa-arrow-left" style="border:3px solid white; padding: 5px;" aria-hidden="true"></i>&nbsp;<i class="fa fa-arrow-right" style="border:3px solid white; padding: 5px;" aria-hidden="true"></i>
+        Keys to control paddles.
+        <i class="fa fa-arrow-up" style="border:3px solid white; padding: 5px;" aria-hidden="true"></i>
+        Key to launch ball.
+        <br>
+        <span class="info scores">
+          Score: <span id="score"></span><br>
+          High Scrore: <span id="high-score"></span><br>
+        </span>
     </div>
-  <canvas id="pinball-canvas" style="background-repeat:no-repeat"></canvas>
-  <div class="scorers-table">
-    <div class="stats-div">
-      <div class="scores">
-        <span>Score</span>
-        <span>High Score</span>
+    <canvas id="pinball-canvas"></canvas>
+    <div class="info-area">
+      <div class="info">
+          Balls Left: <span id="ball-count"></span>
       </div>
-      <div class="score-nums">
-        <span id="score"></span>
-        <span id="high-score"></span>
-      </div>
-      <span>Balls</span>
-      <span id="ball-count"></span>
+      <p>Originally built by <a href="https://github.com/fishshiz/pinball-wizard">Eden Lewis</a>, Improved on by <a href="https://github.com/ErvinSabic">Ervin Sabic</a></p>
     </div>
-    <div class="instructions">
-      Press the Arrow keys to control paddles.
-      Press the <i class="fa fa-arrow-up" aria-hidden="true"></i> key to launch the ball.
+  </div>
+  <script>
+    document.addEventListener("keydown", function (e) {
+      let keyCode = e.keyCode;
+      // space and arrow keys
+      if ([32, 37, 38, 39, 40].indexOf(keyCode) > -1) {
+        e.preventDefault();
 
-    </div>
-  </div>
-  </div>
+      }
+    }, false);
+</script>
   </body>
 </html>

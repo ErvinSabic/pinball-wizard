@@ -19,9 +19,3 @@ export const launch = function launch() {
   }
 );
 };
-
-export const createBall = function createBall() {
-  let ball = Bodies.circle(100, 200, 3.33,{render: { sprite: {texture:"app/assets/images/sprites/ball.png"}}});
-
-  return ball;
-};

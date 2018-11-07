@@ -1,52 +1,5 @@
-:root {
-  --main-lt-blue: #78BDDF;
-}
-
-.icons {
-  height: 650px;
-  width: 100px;
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.icons li {
-  height: 30%;
-  width: 100%;
-  color: var(--main-lt-blue);
-  text-decoration: none;
-}
-
-a {
-  text-decoration: none;
-  text-align: center;
-  height: 30%;
-  width: 100%;
-  color: var(--main-lt-blue);
-}
-
-.scorers-table {
-  height: 650px;
-  width: 300px;
-  background-color: #C4CFD4;
-  color: #377391;
-  font-family: sans-serif;
-  font-size: 25px;
-  top: 0;
-  margin-left: 25px;
-  border-radius: 8px;
-  box-shadow: 0 2px 12px -5px rgba(0,0,0,.1);
-}
-
-html {
-  background-image: url('../images/space.jpg');
-}
-
-.scores {
-  display: flex;
-  justify-content: space-between;
+body {
+  background-color: black;
 }
 
 .update {
@@ -59,23 +12,9 @@ html {
   color: #af1d1d;
 }
 
-.score-nums {
-  display: flex;
-  justify-content: space-between;
-}
-
-.instructions {
-  padding: 10px;
-}
 
 canvas {
-  border-radius: 8px;
   box-shadow: 0 2px 12px -5px rgba(0,0,0,.1);
-
-}
-
-.stats-div {
-  padding: 10px;
 }
 
 #score {
@@ -88,14 +27,22 @@ canvas {
   transition: all .10s ease;
 }
 
-.title {
-  display: block;
-  text-align: center;
-  color: var(--main-lt-blue);
-  font: 20px verdana, sans-serif;
+a {
+  color: #af1d1d;
+}
+.info-area {
+  color:white;
+  background-color: black;
 }
 
-.body {
-  display: flex;
-  justify-content: center;
+.info-area .info {
+  font-size: 3.5vh;
+}
+
+.play-area {
+  margin:0 auto;
+  width:550px;
+  display:block;
+  background-color:black;
+  font-family: 'VT323', monospace;
 }
