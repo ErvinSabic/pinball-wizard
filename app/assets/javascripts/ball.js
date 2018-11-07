@@ -11,7 +11,7 @@ export const launch = function launch() {
     if (keyCode === 38 || keyCode === 32) {
       let pinball = createBall();
       Matter.Body.setPosition(pinball, { x: 525, y: 650 });
-      Matter.Body.setVelocity(pinball, {x: 0, y: 10 });
+      Matter.Body.setVelocity(pinball, {x: 0, y: 5 });
 
       return pinball;
     }
@@ -21,7 +21,7 @@ export const launch = function launch() {
 };
 
 export const createBall = function createBall() {
-  let ball = Bodies.circle(100, 200, 15);
+  let ball = Bodies.circle(100, 200, 10);
 
   return ball;
 };

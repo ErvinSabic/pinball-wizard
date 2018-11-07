@@ -4,7 +4,7 @@ import Matter from 'Matter-js';
   const Constraint = Matter.Constraint;
   const bufferGroup = Matter.Body.nextGroup(true);
 
-  const COLORS = { WALLS: "#C4CFD4", INNERWALLS: "#608CBB", BUMPERS: "#A9D2F0", ORBS: "#5C43B5", PADDLE: "#f5a02e" };
+  const COLORS = { WALLS: "#000000", INNERWALLS: "#608CBB", BUMPERS: "#A9D2F0", ORBS: "#5C43B5", PADDLE: "#f5a02e" };
 
   export const circles = function circles() {
     let circle1 = Bodies.circle(235, 120, 30, { label: 'topCircle', isStatic: true, render: { fillStyle: COLORS.ORBS } });
@@ -37,12 +37,11 @@ import Matter from 'Matter-js';
   };
 
   export const bumpers = function bumpers() {
-    let leftBumper = Bodies.trapezoid(150, 400, 40, 100, 0.5, { isStatic: true, angle: 5.58505, chamfer: { radius: 10 }, render: { fillStyle: COLORS.BUMPERS } });
-    let leftLaunchPad = Bodies.rectangle(155, 386, 5, 95, { label: 'launchpad', isStatic: true, angle: 5.47805, chamfer: { radius: 2 }, render: { fillStyle: COLORS.BUMPERS } });
-    let rightBumper = Bodies.trapezoid(340, 400, 40, 100, 0.5, { isStatic: true, angle: 0.698132, chamfer: { radius: 10 }, render: { fillStyle: COLORS.BUMPERS } });
-    let rightLauchPad = Bodies.rectangle(335, 386, 5, 95, { label: 'launchpad', isStatic: true, angle: 0.810132, chamfer: { radius: 2 }, render: { fillStyle: COLORS.BUMPERS } });
+    let leftBumper = Bodies.trapezoid(150, 420, 40, 100, 1, { isStatic: true, angle: -0.5, chamfer: { radius: 10 }, render: { sprite: {texture:"app/assets/images/sprites/bumper.png"}} });
+    let rightBumper = Bodies.trapezoid(340, 420, 40, 100, 1, { isStatic: true, angle: 0.5, chamfer: { radius: 10 }, render: { sprite: {texture:"app/assets/images/sprites/bumper.png"}} });
+    //
 
-    return [leftBumper, rightBumper, leftLaunchPad, rightLauchPad];
+    return [leftBumper, rightBumper];
   };
 
   export const thorns = function thorns() {
@@ -59,13 +58,13 @@ import Matter from 'Matter-js';
   };
 
   export const paddles = function paddles() {
-    let leftPaddle = Bodies.trapezoid(190, 540, 25, 80, 0.25, { label: 'leftPaddle', angle: (2 * Math.PI)/3, chamfer: { radius: 10 }, isSleeping: false, render: { fillStyle: COLORS.PADDLE }});
+    let leftPaddle = Bodies.trapezoid(190, 540, 25, 80, 0.25, { label: 'leftPaddle', angle: (2 * Math.PI)/3, chamfer: { radius: 10 }, isSleeping: false, render: { sprite: {texture:"app/assets/images/sprites/flipper.png"}}});
    let leftHinge = Bodies.circle(172, 529, 5, { isStatic: true});
    let leftConstraint = Constraint.create({ bodyA: leftPaddle, bodyB: leftHinge, pointA: {x: -18, y: -11 }, stiffness: 0, length: 0 });
    let leftBlock = Bodies.rectangle(200, 550, 30, 30, { isStatic: false, render: {visible: false}});
    let leftWeight = Constraint.create({ bodyA: leftPaddle, bodyB: leftBlock, pointA: {x: 13, y: 11 }, stiffness: 1, length: 1, render: {visible: false} });
 
-   let rightPaddle = Bodies.trapezoid(300, 540, 25, 80, 0.25, { label: 'rightPaddle', angle: (4 * Math.PI)/3, chamfer: { radius: 10 },  isSleeping: false, render: { fillStyle: COLORS.PADDLE }});
+   let rightPaddle = Bodies.trapezoid(300, 540, 25, 80, 0.25, { label: 'rightPaddle', angle: (4 * Math.PI)/3, chamfer: { radius: 10 },  isSleeping: false, render: { sprite: {texture:"app/assets/images/sprites/flipper.png"}}});
    let rightHinge = Bodies.circle(318, 529, 5, { isStatic: true});
    let rightConstraint = Constraint.create({ bodyA: rightPaddle, bodyB: rightHinge, pointA: {x: 18, y: -11 }, stiffness: 0, length: 0 });
    let rightBlock = Bodies.rectangle(290, 550, 30, 30, { isStatic: false, render: {visible: false}});
